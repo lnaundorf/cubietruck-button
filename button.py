@@ -2,9 +2,11 @@
 
 import time
 import os
+from wol import wake_on_lan
 
 BUTTON = "3"
 SLEEP_TIME = 0.2
+NAS_MAC_ADDRESS = "d0:bf:9c:45:ab:04"
 
 def setup_gpio(button):
 	if not os.path.isdir('/sys/class/gpio/gpio' + button):
@@ -40,6 +42,6 @@ ps = PressState(BUTTON)
 
 while True:
 	if ps.pressed():
-		print "Button pressed"
+		wake_on_lan(NAS_MAC_ADDRESS)
 	
 	time.sleep(SLEEP_TIME)
