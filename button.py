@@ -7,6 +7,7 @@ from wol import wake_on_lan
 BUTTON = "3"
 SLEEP_TIME = 0.2
 NAS_MAC_ADDRESS = "d0:bf:9c:45:ab:04"
+LOGFILE_NAME = "button_press.log"
 
 def setup_gpio(button):
 	if not os.path.isdir('/sys/class/gpio/gpio' + button):
@@ -18,6 +19,11 @@ def setup_gpio(button):
 	f.write("in")
 	f.close()
 
+def log_button_press():
+	script_location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+	log_file = open(os.path.join(script_location, LOGFILE_NAME), "a")
+	log_file.write(time.strftime("%b %d %Y %H:%M:%S") + "\n")
+	log_file.close()
 
 class PressState():
 	def __init__(self, button):
@@ -43,5 +49,6 @@ ps = PressState(BUTTON)
 while True:
 	if ps.pressed():
 		wake_on_lan(NAS_MAC_ADDRESS)
+		log_button_press()
 	
 	time.sleep(SLEEP_TIME)
