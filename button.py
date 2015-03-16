@@ -4,9 +4,9 @@ import time
 import os
 from wol import wake_on_lan
 
-BUTTON = "3"
+BUTTON = "3" #GPIO PG0
 SLEEP_TIME = 0.2
-NAS_MAC_ADDRESS = "d0:bf:9c:45:ab:04"
+NAS_MAC_ADDRESS = "xx:xx:xx:xx:xx:xx"
 LOGFILE_NAME = "button_press.log"
 
 def setup_gpio(button):
